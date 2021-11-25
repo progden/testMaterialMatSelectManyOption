@@ -85,13 +85,12 @@ export class Sample31Component implements AfterViewInit{
     console.log(change.source);
     console.log(change.source.value);
     const value = change.source.value;
-    // const idx = this.selected.indexOf(change.source.value);
+    const idx = this.selected.indexOf(change.source.value);
 
-    this.selected = [change.source];
-    // if (idx > -1) {
-    //   this.selected.splice(idx, 1);
-    // } else {
-    //   this.selected.push(value);
-    // }
+    if (idx > -1) {
+      this.selected.splice(idx, 1);
+    } else {
+      this.selected.push(value);
+    }
   }
 }

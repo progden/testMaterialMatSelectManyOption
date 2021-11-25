@@ -1,16 +1,19 @@
 <mat-form-field>
-	<mat-select [formControl]="multiSelectControl" [value]="selected" (openedChange)="openChange($event)"
+	<mat-select #select [formControl]="multiSelectControl" multiple [value]="selected" (openedChange)="openChange($event)"
 		placeholder="Select">
-    <mat-form-field>
-      <input matInput placeholder="label" value="value">
-    </mat-form-field>
-		<cdk-virtual-scroll-viewport itemSize="48" [style.height.px]=4*47>
-			<mat-option *cdkVirtualFor="let topping of toppingList" [value]="topping"
-				(onSelectionChange)="onSelectionChange($event)">{{topping.viewValue}}</mat-option>
-		</cdk-virtual-scroll-viewport>
+    <!-- <ng-container *ngIf="select.focused" > -->
+      <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]=5*48>
+        <mat-option *cdkVirtualFor="let topping of toppingList" [value]="topping"
+          (onSelectionChange)="onSelectionChange($event)">{{topping.viewValue}}</mat-option>
+      </cdk-virtual-scroll-viewport>
+    <!-- </ng-container>
+    <ng-container *ngIf="!select.focused" >
+      <mat-option *ngFor="let item of selected" [value]="item">{{item.viewValue}}</mat-option>
+    </ng-container> -->
 	</mat-select>
 </mat-form-field>
 
+<!-- {{select.focused}} -->
 <br>
 <br>
 <h3>Selected Items</h3>
