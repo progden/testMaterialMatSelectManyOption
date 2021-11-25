@@ -1,0 +1,19 @@
+<mat-form-field>
+	<mat-select [formControl]="multiSelectControl" [value]="selected" (openedChange)="openChange($event)"
+		placeholder="Select">
+    <mat-form-field>
+      <input matInput placeholder="label" value="value">
+    </mat-form-field>
+		<cdk-virtual-scroll-viewport itemSize="48" [style.height.px]=4*47>
+			<mat-option *cdkVirtualFor="let topping of toppingList" [value]="topping"
+				(onSelectionChange)="onSelectionChange($event)">{{topping.viewValue}}</mat-option>
+		</cdk-virtual-scroll-viewport>
+	</mat-select>
+</mat-form-field>
+
+<br>
+<br>
+<h3>Selected Items</h3>
+<div *ngFor="let item of selected">
+  {{item.viewValue}}
+</div>

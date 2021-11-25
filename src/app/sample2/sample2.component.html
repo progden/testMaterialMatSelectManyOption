@@ -1,0 +1,16 @@
+<h4>sample2</h4>
+<mat-form-field>
+  <mat-label>select</mat-label>
+  <mat-select placeholder="Placeholder" [(ngModel)]="selectedValue" name="item" (opened)="content.checkViewportSize()">
+    <cdk-virtual-scroll-viewport #content [style.height.px]="4*48" [itemSize]="48" [minBufferPx]="50*48" [maxBufferPx]="300*48"  >
+      <ng-container *cdkVirtualFor="let item of items" >
+        <mat-option [value]="item.value">{{item.viewValue || 'Loading'}}</mat-option>
+      </ng-container>
+    </cdk-virtual-scroll-viewport>
+  </mat-select>
+</mat-form-field>
+<mat-divider></mat-divider>
+{{selectedValue}}
+<mat-divider></mat-divider>
+<button mat-raised-button color="primary" ngClass="me-2" (click)="clearData()">清除所有選項</button>
+<button mat-raised-button color="warn" (click)="randomData()">重新產生隨機選項</button>

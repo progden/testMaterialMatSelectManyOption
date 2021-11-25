@@ -1,0 +1,39 @@
+<h4>sample3</h4>
+<mat-form-field>
+  <mat-label>select</mat-label>
+  <mat-select placeholder="Placeholder" multiple="true" name="item" (selectionChange)="onSelectValueChange($event)" (opened)="content.checkViewportSize(); onSelectOpened();" (closed)="onSelectClosed()">
+    <!-- <mat-form-field>
+      <input matInput [(ngModel)]="filterStr" placeholder="篩選" ngClass="ms-2" (keyup)="filter()"/>
+    </mat-form-field> -->
+    <!-- <mat-option *ngFor="let item of selectedValue" [value]="item">{{item.viewValue}}</mat-option> -->
+    <cdk-virtual-scroll-viewport #content [style.height.px]="4*48-20" [itemSize]="48" [minBufferPx]="50*48" [maxBufferPx]="300*48"  >
+      <ng-container *cdkVirtualFor="let item of filterItems">
+        <mat-option [value]="item">{{item.viewValue}}</mat-option>
+      </ng-container>
+    </cdk-virtual-scroll-viewport>
+
+  </mat-select>
+</mat-form-field>
+<mat-divider></mat-divider>
+
+<!-- <mat-form-field>
+  <mat-label>select</mat-label>
+  <mat-select placeholder="Placeholder" name="item" >
+    <mat-option *ngFor="let item2 of selectedValue" [value]="item2">{{item2.viewValue}}</mat-option>
+  </mat-select>
+</mat-form-field> -->
+selectedValue<br>
+<ol>
+  <li *ngFor="let item of selectedValue" >{{item.value}} - {{item.viewValue}}</li>
+</ol>
+<mat-divider></mat-divider>
+<button mat-raised-button color="primary" ngClass="me-2" (click)="clearData()">清除所有選項</button>
+<button mat-raised-button color="warn" (click)="randomData()">重新產生隨機選項</button>
+
+<mat-divider></mat-divider>
+
+
+<mat-form-field>
+  <input matInput #newValue placeholder="新值" ngClass="ms-2" />
+</mat-form-field>
+<button mat-raised-button color="primary" ngClass="me-2" (click)="assignValue(newValue.value)">更新選單值</button>

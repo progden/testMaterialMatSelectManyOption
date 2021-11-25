@@ -1,0 +1,12 @@
+<h4>sample1</h4>
+<mat-form-field>
+  <mat-label>select</mat-label>
+  <mat-select placeholder="Placeholder" [(ngModel)]="selectedValue" name="item">
+    <mat-option *ngFor="let item of items" [value]="item.value">
+      {{item.viewValue}}
+  </mat-option>
+</mat-select>
+</mat-form-field>
+<mat-divider></mat-divider>
+<button mat-raised-button color="primary" ngClass="me-1" (click)="clearData()">清除所有選項</button>
+<button mat-raised-button color="warn" (click)="randomData()">重新產生隨機選項</button>
