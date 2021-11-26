@@ -1,22 +1,35 @@
-<mat-form-field>
-	<mat-select #select [formControl]="multiSelectControl" multiple [value]="selected" (openedChange)="openChange($event)"
-		placeholder="Select">
-    <!-- <ng-container *ngIf="select.focused" > -->
-      <cdk-virtual-scroll-viewport itemSize="50" [style.height.px]=5*48>
-        <mat-option *cdkVirtualFor="let topping of toppingList" [value]="topping"
-          (onSelectionChange)="onSelectionChange($event)">{{topping.viewValue}}</mat-option>
-      </cdk-virtual-scroll-viewport>
-    <!-- </ng-container>
-    <ng-container *ngIf="!select.focused" >
-      <mat-option *ngFor="let item of selected" [value]="item">{{item.viewValue}}</mat-option>
-    </ng-container> -->
-	</mat-select>
-</mat-form-field>
+<div ngClass="container">
+  <div ngClass="row">
+    <div ngClass="col">
+      <input type="hidden" #showSelect value="false">
+      <div [hidden]="showSelect.value == 'true'">
+        <mat-form-field>
+          <input #picker matInput placeholder="Select" [value]="selectedStr" [alt]="selectedStr" (focus)="showSelect.value = 'true'; selectShowList()">
+        </mat-form-field>
+      </div>
+      <div [hidden]="showSelect.value === 'false'">
+        <mat-form-field >
+          <mat-select #select [formControl]="multiSelectControl" multiple [value]="selected" (openedChange)="openChange($event)"
+            placeholder="Select" (closed)="showSelect.value = 'false'">
+            <mat-form-field [style.width.%]="100">
+              <input matInput placeholder="篩選" [(ngModel)]="filterStr" (keyup)="onFilterKeyUp()">
+            </mat-form-field>
+            <cdk-virtual-scroll-viewport #optBox itemSize="50" [style.height.px]="4*47" [style.width.px]="264" [style.margin-right.px]="-64" >
+              <ng-container *cdkVirtualFor="let topping of toppingList">
+                <mat-option [value]="topping" *ngIf="topping.isShow"
+                  (onSelectionChange)="onSelectionChange($event)">{{topping.viewValue}}</mat-option>
+              </ng-container>
+            </cdk-virtual-scroll-viewport>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-<!-- {{select.focused}} -->
-<br>
-<br>
-<h3>Selected Items</h3>
-<div *ngFor="let item of selected">
-  {{item.viewValue}}
+    </div>
+    <div ngClass="col">
+      <h3>Selected Items</h3>
+      <div *ngFor="let item of selected">
+        {{item.viewValue}}
+      </div>
+    </div>
+  </div>
 </div>
